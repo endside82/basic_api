@@ -1,5 +1,6 @@
 package com.endside.api.config;
 
+import com.endside.api.schedule.repository.ScheduleQueryRepository;
 import com.endside.api.stuff.repository.StuffQueryRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -21,4 +22,11 @@ public class QueryDsLTestConfig {
     public StuffQueryRepository stuffQueryRepository() {
         return new StuffQueryRepository(jpaQueryFactory());
     }
+    @Bean
+    public ScheduleQueryRepository scheduleQueryRepository() {
+        return new ScheduleQueryRepository(jpaQueryFactory());
+    }
+
+
+
 }

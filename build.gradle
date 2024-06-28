@@ -65,4 +65,5 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jvmArgs("-noverify", "-XX:+EnableDynamicAgentLoading","-Xshare:off") // add this
 }
