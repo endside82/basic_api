@@ -58,4 +58,5 @@
    ```
      {로컬경로}:/var/lib/mysql
    ```
-7. AuthApplication 을 실행 한다.
+   - 현재 spring-boot-docker-compose로 인하여 어플리케이션 실행시 자동으로 실행된다.
+7. Application 을 실행 한다.

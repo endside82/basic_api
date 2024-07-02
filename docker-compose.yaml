@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: my_local_mysql
+    command: --mysql-native-password=ON
+    volumes:
+      - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ~/container/mysql8_4:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: verysecret
+      MYSQL_USER: myuser
+    ports:
+      - 3306:3306
+    restart: always
