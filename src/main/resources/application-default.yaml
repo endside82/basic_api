@@ -19,3 +19,29 @@ spring:
     baselineOnMigrate: true
     locations: "classpath:db/migration"
     validateMigrationNaming: true
+  docker:
+    compose:
+      lifecycle-management: start-only # none, start-only , start-and-stop
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+    path: '/api/error'
+    whitelabel:
+      enabled: false
+  port: 38081
+redis:
+  host: 127.0.0.1
+  port: 6379
+  auth: false
+  authentication:
+    database: 0
+  user:
+    database: 1
+  noti:
+    database: 5
+  sso:
+    database: 6
+  type: STANDARD
+jwt:
+  secret: mysecret
