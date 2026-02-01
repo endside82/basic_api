@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping({CustomErrorController.ERROR_PATH})
 public class CustomErrorController extends AbstractErrorController {
 
-    static final String ERROR_PATH = "/admin/error";
+    static final String ERROR_PATH = "/api/error";
 
     public CustomErrorController(final ErrorAttributes errorAttributes) {
         super(errorAttributes, Collections.emptyList());

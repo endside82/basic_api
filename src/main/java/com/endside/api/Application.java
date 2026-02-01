@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.text.NumberFormat;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 @Slf4j
+@EnableJpaAuditing
 @SpringBootApplication(scanBasePackages={"com.endside.api"})
 public class Application {
 	@PostConstruct
