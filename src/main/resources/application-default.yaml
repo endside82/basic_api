@@ -3,9 +3,9 @@ spring:
     activate:
       on-profile: default
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mydatabase?autoReconnect=true&autoReconnection=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useTimezone=true&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
-    username: myuser
-    password: secret
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:mydatabase}?autoReconnect=true&autoReconnection=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useTimezone=true&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:changeme}
     driver-class-name: com.mysql.cj.jdbc.Driver
   main:
     allow-bean-definition-overriding: true
@@ -31,9 +31,10 @@ server:
       enabled: false
   port: 38081
 redis:
-  host: 127.0.0.1
-  port: 6379
-  auth: false
+  host: ${REDIS_HOST:127.0.0.1}
+  port: ${REDIS_PORT:6379}
+  auth: ${REDIS_AUTH:false}
+  password: ${REDIS_PASSWORD:}
   authentication:
     database: 0
   user:
@@ -44,4 +45,4 @@ redis:
     database: 6
   type: STANDARD
 jwt:
-  secret: mysecret
+  secret: ${JWT_SECRET:your-jwt-secret-key-min-32-characters}
