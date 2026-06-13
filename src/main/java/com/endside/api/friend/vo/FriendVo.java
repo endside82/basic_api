@@ -1,9 +1,6 @@
 package com.endside.api.friend.vo;
 
 import com.endside.api.user.constants.UserStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Getter;
 import lombok.Setter;
 

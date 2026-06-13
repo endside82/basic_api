@@ -12,9 +12,6 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 
 @Slf4j
@@ -25,7 +22,7 @@ public class SecurityConfiguration {
     @Value("${jwt.secret}")
     private String secret;
 
-    private JwtAuthenticationService jwtAuthenticationService;
+    private final JwtAuthenticationService jwtAuthenticationService;
 
     public SecurityConfiguration(JwtAuthenticationService jwtAuthenticationService) {
         this.jwtAuthenticationService = jwtAuthenticationService;
@@ -44,19 +41,12 @@ public class SecurityConfiguration {
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBuilder.getObject(), jwtAuthenticationService, secret));
         http.authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(
-                                new AntPathRequestMatcher("/"),
-                                new AntPathRequestMatcher("/hello"),
-                                new AntPathRequestMatcher("/api/error"),
-                                new AntPathRequestMatcher("/api/hello")
+                                "/", "/error", "/api/error",
+                                "/hello", "/api/hello"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.accessDeniedHandler(accessDeniedHandler()));
         return http.build();
-    }
-
-    @Bean
-    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
-        return new MvcRequestMatcher.Builder(introspector).servletPath("/");
     }
 
     @Bean

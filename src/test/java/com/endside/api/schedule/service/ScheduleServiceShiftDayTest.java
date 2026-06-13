@@ -211,7 +211,7 @@ class ScheduleServiceShiftDayTest {
         List<Schedule> oldSchedules = generateSchedule(stuffId, receiptId, startDate, endDate);
         Map<Boolean, List<Schedule>> splitSchedule = scheduleService.splitScheduleListByDate(oldSchedules, LocalDate.of(2024, 3, 3));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        List<Schedule> inRangeSchedule = splitSchedule.get(ScheduleService.IS_NOT_OUT_OF_END_DATE);
+        List<Schedule> inRangeSchedule = splitSchedule.get(ScheduleConstants.IS_NOT_OUT_OF_END_DATE);
         List<LocalDate> inRangeDates = inRangeSchedule.stream()
                 .map(Schedule::getDate)
                 .toList();
@@ -224,7 +224,7 @@ class ScheduleServiceShiftDayTest {
         assertThat(inRangeDates.contains(LocalDate.of(2024, 3, 4))).isFalse();
         assertThat(inRangeDates.contains(LocalDate.of(2024, 3, 5))).isFalse();
         log.info("----------------------------------");
-        List<Schedule> outRangeSchedule = splitSchedule.get(ScheduleService.IS_OUT_OF_END_DATE);
+        List<Schedule> outRangeSchedule = splitSchedule.get(ScheduleConstants.IS_OUT_OF_END_DATE);
         List<LocalDate> outRangeDates = outRangeSchedule.stream()
                 .map(Schedule::getDate)
                 .toList();

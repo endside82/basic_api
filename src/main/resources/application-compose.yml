@@ -1,0 +1,105 @@
+spring:
+  config:
+    activate:
+      on-profile: compose
+  datasource:
+    write:
+      jdbc-url: jdbc:mysql://${DB_HOST:mysql}:${DB_PORT:3306}/${DB_NAME:mydatabase}?zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
+      username: ${DB_USERNAME:myuser}
+      password: ${DB_PASSWORD:changeme}
+      minimum-idle: 1
+      maximum-pool-size: 2
+      useServerPrepStmts: true
+    read:
+      jdbc-url: jdbc:mysql://${DB_READ_HOST:mysql}:${DB_PORT:3306}/${DB_NAME:mydatabase}?zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
+      username: ${DB_USERNAME:myuser}
+      password: ${DB_PASSWORD:changeme}
+      minimum-idle: 1
+      maximum-pool-size: 2
+      useServerPrepStmts: true
+  main:
+    allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude: org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+  jackson:
+    time-zone: Asia/Seoul
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+  flyway:
+    baselineVersion: 0
+    baselineOnMigrate: true
+    validateMigrationNaming: true
+    locations: "classpath:db/migration"
+  docker:
+    compose:
+      lifecycle-management: none # none, start-only, start-and-stop
+  data:
+    redis:
+      database: ${SPRING_DATA_REDIS_DATABASE:6}
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+    path: '/api/error'
+    whitelabel:
+      enabled: false
+  port: 38081
+redis:
+  host: ${REDIS_HOST:redis}
+  port: ${REDIS_PORT:6379}
+  auth: ${REDIS_AUTH:false}
+  password: ${REDIS_PASSWORD:}
+  authentication:
+    database: 0
+  user:
+    database: 1
+  noti:
+    database: 3
+  version:
+    database: 4
+  type: STANDARD
+jwt:
+  secret: ${JWT_SECRET:your-jwt-secret-key-min-32-characters}
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+  publishable-key: ${STRIPE_PUBLISHABLE_KEY:}
+  webhook-tolerance-seconds: ${STRIPE_WEBHOOK_TOLERANCE_SECONDS:300}
+  prices:
+    BASIC_MONTHLY: ${STRIPE_PRICE_BASIC_MONTHLY:}
+    BASIC_YEARLY: ${STRIPE_PRICE_BASIC_YEARLY:}
+    PRO_MONTHLY: ${STRIPE_PRICE_PRO_MONTHLY:}
+    PRO_YEARLY: ${STRIPE_PRICE_PRO_YEARLY:}
+outbox:
+  retry:
+    max-attempts: ${OUTBOX_RETRY_MAX_ATTEMPTS:10}
+    backoff-base-seconds: ${OUTBOX_RETRY_BACKOFF_BASE_SECONDS:60}
+    backoff-cap-seconds: ${OUTBOX_RETRY_BACKOFF_CAP_SECONDS:3600}
+cheat-use: ${CHEAT_USE:false}
+chalk:
+  outbox:
+    enabled: ${CHALK_OUTBOX_ENABLED:false}
+  support:
+    url: ${CHALK_SUPPORT_URL:https://support.example.com}
+    email: ${CHALK_SUPPORT_EMAIL:support@example.com}
+  report:
+    is-new-window: ${CHALK_REPORT_IS_NEW_WINDOW:PT24H}
+  gifticon:
+    stub:
+      enabled: ${CHALK_GIFTICON_STUB_ENABLED:true}
+module:
+  snapshot:
+    keep-count: ${MODULE_SNAPSHOT_KEEP_COUNT:5}
+    max-state-bytes: ${MODULE_SNAPSHOT_MAX_STATE_BYTES:1048576}
+  bootstrap:
+    max-bytes: ${MODULE_BOOTSTRAP_MAX_BYTES:2097152}
+  artifact:
+    max-payload-bytes: ${MODULE_ARTIFACT_MAX_PAYLOAD_BYTES:512000}
+server-config:
+  urls: ${SERVER_CONFIG_URLS:http://localhost:3000,http://localhost:3010}

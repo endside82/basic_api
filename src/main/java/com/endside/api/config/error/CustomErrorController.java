@@ -2,9 +2,9 @@ package com.endside.api.config.error;
 
 import com.endside.api.config.error.exception.RestException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.webmvc.autoconfigure.error.AbstractErrorController;
+import org.springframework.boot.webmvc.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +14,11 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping({CustomErrorController.ERROR_PATH})
+@RequestMapping({CustomErrorController.ERROR_PATH, CustomErrorController.DEFAULT_ERROR_PATH})
 public class CustomErrorController extends AbstractErrorController {
 
     static final String ERROR_PATH = "/api/error";
+    static final String DEFAULT_ERROR_PATH = "/error";
 
     public CustomErrorController(final ErrorAttributes errorAttributes) {
         super(errorAttributes, Collections.emptyList());

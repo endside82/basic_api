@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:mydatabase}?zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:changeme}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: false
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+        show_sql: true
+        format_sql: true
+chalk:
+  gifticon:
+    stub:
+      enabled: true
